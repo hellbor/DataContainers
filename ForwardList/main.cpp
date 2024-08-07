@@ -38,6 +38,7 @@ class ForwardList
 {
 	Element* Head;
 	unsigned int size;
+	//char* list;
 public:
 	ForwardList()
 	{
@@ -50,10 +51,19 @@ public:
 		*this = other;
 		cout << "LCopyConstructor:" << this << endl;
 	}
+	ForwardList(ForwardList&& other)noexcept :ForwardList()
+	{
+		this->size = other.size;
+		this->Head = other.Head;
+		other.size = 0;
+		other.Head = nullptr;
+		cout << "LMoveConstructor:\t" << this << endl;
+	}
 	~ForwardList()
 	{
-		while (Head)pop_front();
-		pop_back();
+		/*while (Head)pop_front();
+		pop_back();*/
+		//delete[] Head;
 		cout << "LDestructor:\t" << this << endl;
 	}
 
@@ -65,6 +75,17 @@ public:
 		for (Element* Temp = other.Head; Temp; Temp = Temp->pNext)
 			push_back(Temp->Data);
 		cout << "LCopyAssignment:" << this << endl;
+		return *this;
+	}
+	ForwardList& operator=(ForwardList&& other)noexcept
+	{
+		if (this == &other)return *this;
+		delete[] this->Head;
+		this->Head = other.Head;
+		this->size = other.size;
+		other.size = 0;
+		other.Head = nullptr;
+		cout << "LMoveAssignment:\t\t" << this << endl;
 		return *this;
 	}
 
@@ -114,7 +135,6 @@ public:
 		Temp->pNext = new Element(Data, Temp->pNext);
 		size++;
 	}
-	//void erase(int Data)
 
 	//					Removing elements:
 	void pop_front()
@@ -181,6 +201,7 @@ public:
 
 //#define BASE_CHECK
 //#define COUNT_CHECK
+#define LIST_CHECK
 
 void main()
 {
@@ -232,6 +253,7 @@ void main()
 
 #endif // COUNT_CHECK
 
+#ifdef LIST_CHECK
 	int n;
 	cout << "Введите количество элементов: "; cin >> n;
 	ForwardList list;
@@ -241,10 +263,13 @@ void main()
 		//list.push_front(rand() % 100);
 	}
 	cout << "List filled" << endl;
-	list.print();
 
-	ForwardList list2 = list;		//CopyConstructor
+	list.print();
+	//ForwardList list2 = list;				//CopyConstructor
 	//ForwardList list2;
 	//list2 = list;
+	ForwardList list2 = std::move(list);	//MoveConstructor
 	list2.print();
+
+#endif // LIST_CHECK
 }
