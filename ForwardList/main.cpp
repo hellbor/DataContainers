@@ -32,13 +32,12 @@ public:
 	}
 	friend class ForwardList;
 };
-	int Element:: count = 0;
+	int Element::count = 0;
 
 class ForwardList
 {
 	Element* Head;
 	unsigned int size;
-	//char* list;
 public:
 	ForwardList()
 	{
@@ -48,22 +47,23 @@ public:
 	}
 	ForwardList(const ForwardList& other) :ForwardList()
 	{
+		/*for (Element* Temp = other.Head; Temp; Temp = Temp->pNext)
+			push_back(Temp->Data);*/
 		*this = other;
 		cout << "LCopyConstructor:" << this << endl;
 	}
 	ForwardList(ForwardList&& other)noexcept :ForwardList()
 	{
-		this->size = other.size;
 		this->Head = other.Head;
-		other.size = 0;
+		this->size = other.size;
 		other.Head = nullptr;
+		other.size = 0;
 		cout << "LMoveConstructor:\t" << this << endl;
 	}
 	~ForwardList()
 	{
 		/*while (Head)pop_front();
 		pop_back();*/
-		//delete[] Head;
 		cout << "LDestructor:\t" << this << endl;
 	}
 
@@ -80,11 +80,11 @@ public:
 	ForwardList& operator=(ForwardList&& other)noexcept
 	{
 		if (this == &other)return *this;
-		delete[] this->Head;
+		delete[]this->Head;
 		this->Head = other.Head;
 		this->size = other.size;
-		other.size = 0;
 		other.Head = nullptr;
+		other.size = 0;
 		cout << "LMoveAssignment:\t\t" << this << endl;
 		return *this;
 	}
@@ -265,11 +265,13 @@ void main()
 	cout << "List filled" << endl;
 
 	list.print();
-	//ForwardList list2 = list;				//CopyConstructor
 	//ForwardList list2;
 	//list2 = list;
-	ForwardList list2 = std::move(list);	//MoveConstructor
+	ForwardList list2 = list;				//CopyConstructor
 	list2.print();
+
+	ForwardList list3 = std::move(list2);	//MoveConstructor
+	list3.print();
 
 #endif // LIST_CHECK
 }
