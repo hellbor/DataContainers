@@ -45,6 +45,14 @@ public:
 		size = 0;
 		cout << "LConstructor:\t" << this << endl;
 	}
+	ForwardList(const std::initializer_list<int>& il) :ForwardList()
+	{
+		cout << typeid(il.begin()).name() << endl;
+		for (int const* it = il.begin(); it != il.end(); it++)
+		{
+			push_back(*it);
+		}
+	}
 	ForwardList(const ForwardList& other) :ForwardList()
 	{
 		/*for (Element* Temp = other.Head; Temp; Temp = Temp->pNext)
@@ -54,10 +62,11 @@ public:
 	}
 	ForwardList(ForwardList&& other)noexcept :ForwardList()
 	{
-		this->Head = other.Head;
+		/*this->Head = other.Head;
 		this->size = other.size;
 		other.Head = nullptr;
-		other.size = 0;
+		other.size = 0;*/
+		*this = std::move(other);
 		cout << "LMoveConstructor:\t" << this << endl;
 	}
 	~ForwardList()
@@ -80,7 +89,8 @@ public:
 	ForwardList& operator=(ForwardList&& other)noexcept
 	{
 		if (this == &other)return *this;
-		delete[]this->Head;
+		//delete[]this->Head;
+		while (Head)pop_front();
 		this->Head = other.Head;
 		this->size = other.size;
 		other.Head = nullptr;
@@ -181,6 +191,19 @@ public:
 	}
 
 	//					Methods:
+	void reverse()
+	{
+		ForwardList buffer;
+		while (Head)
+		{
+			buffer.push_front(Head->Data);
+			pop_front();
+		}
+		this->Head = buffer.Head;
+		this->size = buffer.size;
+		buffer.Head = nullptr;
+	}
+
 	void print()const
 	{
 		cout << "Head:\t" << Head << endl;
@@ -199,9 +222,28 @@ public:
 	}
 };
 
+void Print(int arr[])
+{
+	cout << typeid(arr).name() << endl;
+	cout << sizeof(arr) << endl;
+	for (int i = 0; i < sizeof(arr) / sizeof(arr[0]); i++)
+	{
+		cout << arr[i] << tab;
+	}
+	cout << endl;
+	/*for (int : arr)
+	{
+		cout << i << tab;
+	}
+	cout << endl;*/
+}
+
+
 //#define BASE_CHECK
 //#define COUNT_CHECK
-#define LIST_CHECK
+//#define LIST_CHECK
+//#define RANGE_BASED_FOR_ARRAY
+#define RANGE_BASED_FOR_LIST
 
 void main()
 {
@@ -274,4 +316,34 @@ void main()
 	list3.print();
 
 #endif // LIST_CHECK
+
+#ifdef RANGE_BASED_FOR_ARRAY
+	int arr[] = { 3,5,8,13,21,34,55,89,144 };
+	for (int i = 0; i < sizeof(arr) / sizeof(arr[0]); i++)
+	{
+		cout << arr[i] << tab;
+	}
+	cout << endl;
+
+	//Ranged-based for:
+	//Range (диапозон) в данном случае понимается как контейнер
+	for (int i : arr)
+	{
+		cout << i << tab;
+	}
+	cout << endl;
+
+	Print(arr);
+#endif // RANGE_BASED_FOR_ARRAY
+
+#ifdef RANGE_BASED_FOR_LIST
+	ForwardList list = { 3, 5, 8, 13, 21 };
+	list.print();
+	//list.print();
+	for (int i : list)
+	{
+		cout << i << tab;
+	}
+	cout << endl;
+#endif // RANGE_BASED_FOR_LIST
 }
