@@ -10,7 +10,7 @@ private:
 	Element* pNext;
 	Element* pPrev;
 public:
-	Element(int Data, Element* pPrev, Element* pNext) :Data(Data), pPrev(pPrev), pNext(pNext)
+	Element(int Data, Element* pPrev = nullptr, Element* pNext = nullptr) :Data(Data), pPrev(pPrev), pNext(pNext)
 	{
 		cout << "EConstructor:\t\t" << this << endl;
 	}
