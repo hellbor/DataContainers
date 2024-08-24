@@ -9,18 +9,22 @@ private:
 	int Data;
 	Element* pNext;
 	Element* pPrev;
+	static int count;
 public:
 	Element(int Data, Element* pPrev = nullptr, Element* pNext = nullptr) :Data(Data), pPrev(pPrev), pNext(pNext)
 	{
+		count++;
 		cout << "EConstructor:\t\t" << this << endl;
 	}
 	~Element()
 	{
+		count--;
 		cout << "EDestructor:\t\t" << this << endl;
 	}
 	friend class List;
 	friend class Iterator;
 };
+int Element::count = 0;
 
 	class Iterator
 	{
