@@ -125,6 +125,7 @@ public:
 		while (Head)pop_front();
 		for (Element* Temp = other.Head; Temp; Temp = Temp->pNext)
 			push_back(Temp->Data);
+		reverse();
 		cout << "LCopyAssignment:" << this << endl;
 		return *this;
 	}
@@ -295,7 +296,7 @@ void main()
 #ifdef BASE_CHECK
 	//Element element(5);
 	int n;
-	cout << "введите количество элементов: "; cin >> n;
+	cout << "Введите количество элементов: "; cin >> n;
 	ForwardList list;
 	for (int i = 0; i < n; i++)
 	{
@@ -348,12 +349,14 @@ void main()
 		//list.push_front(rand() % 100);
 	}
 	cout << "List filled" << endl;
-
 	list.print();
+
+	cout << "Making copy" << endl;
+	ForwardList list2 = list;				//CopyConstructor
 	//ForwardList list2;
 	//list2 = list;
-	ForwardList list2 = list;				//CopyConstructor
 	list2.print();
+	cout << "Copy DONE" << endl;
 
 	ForwardList list3 = std::move(list2);	//MoveConstructor
 	list3.print();
