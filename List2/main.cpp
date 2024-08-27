@@ -72,7 +72,7 @@ public:
 			Tail->pNext = New;
 			Tail = New;*/
 
-			Tail = Tail->pNext = new Element(Data, Tail);
+			Tail = Tail->pNext = new Element(Data, nullptr, Tail);
 		}
 		size++;
 	}
