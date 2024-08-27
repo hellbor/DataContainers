@@ -83,7 +83,7 @@ public:
 		if (Index == size)return push_back(Data);
 
 		Element* Temp;
-		if (Index < size)
+		if (Index < size / 2)
 		{
 			Temp = Head;
 			for (int i = 0; i < Index; i++)
@@ -94,7 +94,7 @@ public:
 		else
 		{
 			Temp = Tail;
-			for (int i = 0; i < size - Index; i++)
+			for (int i = 0; i < size - Index - 1; i++)
 			{
 				Temp = Temp->pPrev;
 			}
@@ -150,7 +150,7 @@ public:
 		if (Index == size) return pop_back();
 
 		Element* Temp;
-		if (Index < size)
+		if (Index < size / 2)
 		{
 			Temp = Head;
 			for (int i = 0; i < Index; i++)
