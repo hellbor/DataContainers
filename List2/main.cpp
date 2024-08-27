@@ -50,10 +50,12 @@ public:
 		}
 		else
 		{
-			Element* New = new Element(Data);
+			/*Element* New = new Element(Data);
 			New->pNext = Head;
 			Head->pPrev = New;
-			Head = New;
+			Head = New;*/
+
+			Head = Head->pPrev = new Element(Data, Head);
 		}
 		size++;
 	}
@@ -65,11 +67,46 @@ public:
 		}
 		else
 		{
-			Element* New = new Element(Data);
+			/*Element* New = new Element(Data);
 			New->pPrev = Tail;
 			Tail->pNext = New;
-			Tail = New;
+			Tail = New;*/
+
+			Tail = Tail->pNext = new Element(Data, Tail);
 		}
+		size++;
+	}
+	void insert(int Data, int Index)
+	{
+		if (Index > size)return;
+		if (Index == 0)return push_front(Data);
+		if (Index == size)return push_back(Data);
+
+		Element* Temp;
+		if (Index < size)
+		{
+			Temp = Head;
+			for (int i = 0; i < Index; i++)
+			{
+				Temp = Temp->pNext;
+			}
+		}
+		else
+		{
+			Temp = Tail;
+			for (int i = 0; i < size - Index; i++)
+			{
+				Temp = Temp->pPrev;
+			}
+		}
+		/*Element* New = new Element(Data);
+		New->pNext = Temp;
+		New->pPrev = Temp->pPrev;
+		Temp->pPrev->pNext = New;
+		Temp->pPrev = New;*/
+
+		Temp = Temp->pPrev = Temp->pPrev->pNext = new Element(Data, Temp);
+
 		size++;
 	}
 
@@ -104,6 +141,34 @@ public:
 			delete Tail->pNext;
 			Tail->pNext = nullptr;
 		}
+		size--;
+	}
+	void erase(int Index)
+	{
+		if (Index > size) return;                
+		if (Index == 0) return pop_front();   
+		if (Index == size) return pop_back();
+
+		Element* Temp;
+		if (Index < size)
+		{
+			Temp = Head;
+			for (int i = 0; i < Index; i++)
+			{
+				Temp = Temp->pNext;
+			}
+		}
+		else
+		{
+			Temp = Tail;
+			for (int i = 0; i < size - Index - 1; i++)
+			{
+				Temp = Temp->pPrev;
+			}
+		}
+		Temp->pPrev->pNext = Temp->pNext;
+		Temp->pNext->pPrev = Temp->pPrev;
+		delete Temp;
 		size--;
 	}
 
@@ -155,4 +220,15 @@ void main()
 	list.reverse_print();
 	for (int i = 0; i < 100; i++)list.pop_back();
 	list.reverse_print();
+
+	int index;
+	int value;
+	cout << "Введите индекс добавляемого элемента: "; cin >> index;
+	cout << "Введите значение добавляемого элемента: "; cin >> value;
+	list.insert(value, index);
+	list.print();
+
+	cout << "Введите индекс удаляемого элемента: "; cin >> index;
+	list.erase(index);
+	list.print();
 }

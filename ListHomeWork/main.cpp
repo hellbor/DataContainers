@@ -40,8 +40,21 @@ int Element::count = 0;
 		}
 		Iterator& operator++()
 		{
-			Temp = Temp->pPrev = Temp->pNext;
+			Temp = Temp->pNext;
 			return *this;
+		}
+		Iterator& operator--()
+		{
+			Temp = Temp->pPrev;
+			return *this;
+		}
+		bool operator!=(const Iterator& other)const
+		{
+			return this->Temp != other.Temp;
+		}
+		int operator*()
+		{
+			return Temp->Data;
 		}
 	};
 class List
@@ -68,6 +81,14 @@ public:
 		size = 0;
 		cout << "LConstructor:\t\t" << this << endl;
 	}
+	List(const std::initializer_list<int>& il) :List()
+	{
+		cout << typeid(il.begin()).name() << endl;
+		for (int const* it = il.begin(); it != il.end(); it++)
+		{
+			push_back(*it);
+		}
+	}
 	List(const List& other) :List()
 	{
 		*this = other;
@@ -81,6 +102,72 @@ public:
 	~List()
 	{
 		cout << "LDestructor:\t\t" << this << endl;
+	}
+
+	//					Adding elements:
+	void push_front(int Data)
+	{
+		if (Head == nullptr && Tail == nullptr)
+		{
+			Head = Tail = new Element(Data);
+		}
+		else
+		{
+			Element* New = new Element(Data);
+			New->pNext = Head;
+			Head->pPrev = New;
+			Head = New;
+		}
+		size++;
+	}
+	void push_back(int Data)
+	{
+		if (Head == nullptr && Tail == nullptr)
+		{
+			Head = Tail = new Element(Data);
+		}
+		else
+		{
+			Element* New = new Element(Data);
+			New->pPrev = Tail;
+			Tail->pNext = New;
+			Tail = New;
+		}
+		size++;
+	}
+
+	//					Removing elements:
+	void pop_front()
+	{
+		if (Head == nullptr && Tail == nullptr)return;
+		if (Head == Tail)
+		{
+			delete Head;
+			Head = Tail = nullptr;
+		}
+		else
+		{
+			Head = Head->pNext;
+			delete Head->pPrev;
+			Head->pPrev = nullptr;
+		}
+		size--;
+	}
+	void pop_back()
+	{
+		if (Head == nullptr && Tail == nullptr)
+		if (Head == Tail)
+		{
+			delete Tail;
+			Head = Tail = nullptr;
+		}
+		else
+		{
+			Tail = Tail->pPrev;
+			delete Tail->pNext;
+			Tail->pNext = nullptr;
+		}
+		size--;
 	}
 
 	//					Operators:
@@ -107,11 +194,31 @@ public:
 	//					Methods:
 	void print()const
 	{
-		for(Element* Temp = Head;Temp; Temp = Temp->pPrev = Temp->pNext)
-			cout << Temp << tab << Temp->Data << tab << Temp->pPrev << tab << Temp->pNext << endl;
 		cout << "Head:\t\t\t" << Head << endl;
+
+		for(Element* Temp = Head;Temp; Temp = Temp->pNext)
+			cout
+			<< Temp->pPrev << tab
+			<< Temp << tab
+			<< Temp->Data << tab
+			<< Temp->pNext << endl;
 		cout << "Tail:\t\t\t" << Tail << endl;
+		cout << "Введите количество элементов списка: " << size << endl;
 		//cout << "Head:\t" << Head << tab << "Tail:\t" << Tail << endl;
+	}
+	void reverse_print()const
+	{
+		cout << "Tail:\t" << Tail << endl;
+
+		for (Element* Temp = Tail; Temp; Temp = Temp->pPrev)
+			cout
+			<< Temp->pPrev << tab
+			<< Temp << tab
+			<< Temp->Data << tab
+			<< Temp->pNext << endl;
+
+		cout << "Head:\t" << Tail << endl;
+		cout << "Введите количество элементов списка: " << size << endl;
 	}
 };
 
