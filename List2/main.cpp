@@ -403,6 +403,7 @@ List operator+(const List& left, const List& right)
 //#define BASE_CHECK
 //#define ITERATORS_CHECK
 //#define OPERATORS_CHECK
+#define CONST_ITERATORS_CHECK
 
 void main()
 {
@@ -455,12 +456,15 @@ void main()
 	//for (int i : list3)cout << i << tab; cout << endl;  
 #endif // OPERATORS_CHECK
 
+#ifdef CONST_ITERATORS_CHECK
 	List list1 = { 3,5,8,13,21 };
-	List list2 = {34,55,89};
+	List list2 = { 34,55,89 };
 	List list3 = list1 + list2;
 	/*list3.print();
 	list3.reverse_print();*/
 	for (int i : list1)cout << i << tab; cout << endl;
 	for (int i : list2)cout << i << tab; cout << endl;
 	for (int i : list3)cout << i << tab; cout << endl;
+#endif // CONST_ITERATORS_CHECK
+
 }
