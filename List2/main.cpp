@@ -27,6 +27,7 @@ class List
 		friend class List;
 	}*Head, *Tail;
 	size_t size;
+
 	class ConstBaseIterator
 	{
 	protected:
@@ -47,6 +48,10 @@ class List
 
 		//				Dereferense operators:
 		const int& operator*()const
+		{
+			return Temp->Data;
+		}
+		int& operator*()
 		{
 			return Temp->Data;
 		}
@@ -84,21 +89,6 @@ public:
 			ConstIterator old = *this;
 			Temp = Temp->pPrev;
 			return old;
-		}
-		//					Comperison operators:
-		bool operator==(const ConstIterator& other)const
-		{
-			return this->Temp == other.Temp;
-		}
-		bool operator!=(const ConstIterator& other)const
-		{
-			return this->Temp != other.Temp;
-		}
-
-		//					Dereference operators:
-		const int& operator*()const
-		{
-			return Temp->Data;
 		}
 };
 	class ConstReverseIterator:public ConstBaseIterator
@@ -138,33 +128,46 @@ public:
 		}
 	};
 
-	ConstIterator begin()
+	class Iterator :public ConstIterator
+	{
+	public:
+		Iterator(Element* Temp = nullptr) :ConstIterator(Temp){}
+		~Iterator(){}
+	};
+	class ReverseIterator :public ConstReverseIterator
+	{
+	public:
+		ReverseIterator(Element* Temp = nullptr) :ConstReverseIterator(Temp) {}
+		~ReverseIterator() {}
+	};
+
+	Iterator begin()
 	{
 		return Head;
+	}
+	Iterator end()
+	{
+		return nullptr;
+	}
+	ReverseIterator rbegin()
+	{
+		return Tail;
+	}
+	ReverseIterator rend()
+	{
+		return nullptr;
 	}
 	const ConstIterator begin()const
 	{
 		return Head;
 	}
-	ConstIterator end()
-	{
-		return nullptr;
-	}
 	const ConstIterator end()const
 	{
 		return nullptr;
 	}
-	ConstReverseIterator rbegin()
-	{
-		return Tail;
-	}
 	const ConstReverseIterator rbegin()const
 	{
 		return Tail;
-	}
-	ConstReverseIterator rend()
-	{
-		return nullptr;
 	}
 	const ConstReverseIterator rend()const
 	{
@@ -383,11 +386,16 @@ public:
 
 List operator+(const List& left, const List& right)
 {
-	List buffer = left;	//CopyConstructor
+	List buffer;					//CopyConstructor
+	for (List::ConstIterator it = left.begin(); it != left.end(); ++it)
+	{
+		buffer.push_back(*it);
+		*it *= 10;
+	}
 	for (List::ConstIterator it = right.begin(); it != right.end(); ++it)
 	{
 		buffer.push_back(*it);
-		//*it *= 10;
+		*it *= 10;
 	}
 	return buffer;
 }
