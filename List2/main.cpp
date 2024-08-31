@@ -394,12 +394,12 @@ List operator+(const List& left, const List& right)
 	for (List::ConstIterator it = left.begin(); it != left.end(); ++it)
 	{
 		buffer.push_back(*it);
-		*it *= 10;
+		//*it *= 10;
 	}
 	for (List::ConstIterator it = right.begin(); it != right.end(); ++it)
 	{
 		buffer.push_back(*it);
-		*it *= 10;
+		//*it *= 10;
 	}
 	return buffer;
 }
