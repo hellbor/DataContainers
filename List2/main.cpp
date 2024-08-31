@@ -161,19 +161,19 @@ public:
 	{
 		return nullptr;
 	}
-	const ConstIterator begin()const
+	ConstIterator begin()const
 	{
 		return Head;
 	}
-	const ConstIterator end()const
+	ConstIterator end()const
 	{
 		return nullptr;
 	}
-	const ConstReverseIterator rbegin()const
+	ConstReverseIterator rbegin()const
 	{
 		return Tail;
 	}
-	const ConstReverseIterator rend()const
+	ConstReverseIterator rend()const
 	{
 		return nullptr;
 	}
@@ -403,6 +403,11 @@ List operator+(const List& left, const List& right)
 	}
 	return buffer;
 }
+void Grow(List& list)
+{
+	for (List::Iterator it = list.begin(); it != list.end(); ++it)
+		*it *= 10;
+}
 
 //#define BASE_CHECK
 //#define ITERATORS_CHECK
@@ -468,6 +473,8 @@ void main()
 	list3.reverse_print();*/
 	for (int i : list1)cout << i << tab; cout << endl;
 	for (int i : list2)cout << i << tab; cout << endl;
+	for (int i : list3)cout << i << tab; cout << endl;
+	Grow(list3);
 	for (int i : list3)cout << i << tab; cout << endl;
 #endif // CONST_ITERATORS_CHECK
 
