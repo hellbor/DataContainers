@@ -51,6 +51,10 @@ class List
 		{
 			return Temp->Data;
 		}
+		int& operator*()
+		{
+			return Temp->Data;
+		}
 	};
 public:
 	class ConstIterator:public ConstBaseIterator
@@ -129,20 +133,12 @@ public:
 	public:
 		Iterator(Element* Temp = nullptr) :ConstIterator(Temp){}
 		~Iterator(){}
-		int& operator*()
-		{
-			return Temp->Data;
-		}
 	};
 	class ReverseIterator :public ConstReverseIterator
 	{
 	public:
 		ReverseIterator(Element* Temp = nullptr) :ConstReverseIterator(Temp) {}
 		~ReverseIterator() {}
-		int& operator*()
-		{
-			return Temp->Data;
-		}
 	};
 
 	Iterator begin()
