@@ -407,7 +407,9 @@ template<typename T>void Grow(List<T>& list)
 //#define BASE_CHECK
 //#define ITERATORS_CHECK
 //#define OPERATORS_CHECK
-#define CONST_ITERATORS_CHECK
+//#define CONST_ITERATORS_CHECK
+#define DOUBLE_CHECK
+#define STRING_CHECK
 
 void main()
 {
@@ -473,4 +475,24 @@ void main()
 	for (int i : list3)cout << i << tab; cout << endl;
 #endif // CONST_ITERATORS_CHECK
 
+#ifdef DOUBLE_CHECK
+	List<double> list1 = { 1.3, 2.1, 3.7 };
+	List<double> list2 = { 3.4, 5.5, 8.9 };
+	List<double> list3 = list1 + list2;
+	/*list3.print();
+	list3.reverse_print();*/
+	for (double i : list1)cout << i << tab; cout << endl;
+	for (double i : list2)cout << i << tab; cout << endl;
+	for (double i : list3)cout << i << tab; cout << endl;
+	/*Grow<double>(list3);
+	for (double i : list3)cout << i << tab; cout << endl;*/
+#endif // DOUBLE_CHECK
+	List<std::string>string1 = { "Hello" };
+	List<std::string>string2 = { "World" };
+	List<std::string>string3 = string1 + string2;
+	/*list2.print();
+	list2.reverse_print();*/
+	for (std::string i : string1)cout << i << tab; cout << endl;
+	for (std::string i : string2)cout << i << tab; cout << endl;
+	for (std::string i : string3)cout << i << tab; cout << endl;
 }
