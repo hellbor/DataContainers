@@ -490,8 +490,7 @@ void main()
 	List<std::string>string1 = { "Hello" };
 	List<std::string>string2 = { "World" };
 	List<std::string>string3 = string1 + string2;
-	/*list2.print();
-	list2.reverse_print();*/
+	
 	for (std::string i : string1)cout << i << tab; cout << endl;
 	for (std::string i : string2)cout << i << tab; cout << endl;
 	for (std::string i : string3)cout << i << tab; cout << endl;
