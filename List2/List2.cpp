@@ -1,4 +1,4 @@
-#include"List2.h"
+ï»¿#include"List2.h"
 
 template<typename T>typename List<T>::ConstIterator List<T>::begin()const
 {
@@ -210,7 +210,7 @@ template<typename T> void List<T>::print()const
 		<< Temp->Data << tab
 		<< Temp->pNext << endl;
 	cout << "Tail:\t" << Tail << endl;
-	cout << "Êîëè÷åñòâî ýëåìåíòîâ ñïèñêà: " << size << endl;
+	cout << "ÐšÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚Ð¾Ð² ÑÐ¿Ð¸ÑÐºÐ°: " << size << endl;
 	cout << delimiter << endl;
 }
 template<typename T> void List<T>::reverse_print()const
@@ -226,7 +226,7 @@ template<typename T> void List<T>::reverse_print()const
 		<< Temp->pNext << endl;
 
 	cout << "Head:\t" << Head << endl;
-	cout << "Êîëè÷åñòâî ýëåìåíòîâ ñïèñêà: " << size << endl;
+	cout << "ÐšÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚Ð¾Ð² ÑÐ¿Ð¸ÑÐºÐ°: " << size << endl;
 	cout << delimiter << endl;
 }
 
