@@ -282,7 +282,6 @@ void Print(int arr[])
 	cout << endl;*/
 }
 
-
 //#define BASE_CHECK
 //#define COUNT_CHECK
 //#define LIST_CHECK
