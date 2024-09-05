@@ -19,11 +19,17 @@ template<typename T>class List
 		Element(T Data, Element* pNext = nullptr, Element* pPrev = nullptr)
 			:Data(Data), pNext(pNext), pPrev(pPrev)
 		{
+#ifdef DEBUG
 			cout << "EConstructor:\t" << this << endl;
+#endif // DEBUG
+
 		}
 		~Element()
 		{
+#ifdef DEBUG
 			cout << "EDestructor:\t" << this << endl;
+#endif // DEBUG
+
 		}
 		friend class List;
 	}*Head, * Tail;
@@ -48,7 +54,7 @@ template<typename T>class List
 		}
 
 		//				Dereferense operators:
-		const T& operator*()const
+		T& operator*()
 		{
 			return Temp->Data;
 		}
@@ -59,11 +65,17 @@ public:
 	public:
 		ConstIterator(Element* Temp = nullptr) :ConstBaseIterator(Temp)
 		{
+#ifdef DEBUG
 			cout << "ItConstructor:\t" << this << endl;
+#endif // DEBUG
+
 		}
 		~ConstIterator()
 		{
+#ifdef DEBUG
 			cout << "ItDestructor:\t" << this << endl;
+#endif // DEBUG
+
 		}
 		ConstIterator& operator++()
 		{
@@ -93,11 +105,17 @@ public:
 	public:
 		ConstReverseIterator(Element* Temp = nullptr) :ConstBaseIterator(Temp)
 		{
+#ifdef DEBUG
 			cout << "RItConstructor:\t" << this << endl;
+#endif // DEBUG
+
 		}
 		~ConstReverseIterator()
 		{
+#ifdef DEBUG
 			cout << "RItDestructor:\t" << this << endl;
+#endif // DEBUG
+
 		}
 
 		//					Increment/Decrement:
