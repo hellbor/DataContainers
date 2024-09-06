@@ -1,12 +1,13 @@
 ﻿#pragma once
 #include<iostream>
+#include<string>
 using namespace std;
 using std::cin;
 using std::cout;
 using std::endl;
 
 #define tab "\t"
-#define delimiter "\n---------------------------------------------\n"
+#define delimiter "\n-------------------------------------------------\n"
 
 template<typename T>class List
 {
@@ -22,19 +23,16 @@ template<typename T>class List
 #ifdef DEBUG
 			cout << "EConstructor:\t" << this << endl;
 #endif // DEBUG
-
 		}
 		~Element()
 		{
 #ifdef DEBUG
 			cout << "EDestructor:\t" << this << endl;
 #endif // DEBUG
-
 		}
 		friend class List;
 	}*Head, * Tail;
 	size_t size;
-
 	class ConstBaseIterator
 	{
 	protected:
@@ -43,95 +41,36 @@ template<typename T>class List
 		ConstBaseIterator(Element* Temp = nullptr) :Temp(Temp) {}
 		~ConstBaseIterator() {}
 
-		//				Comperison operators:
+		//					Comparison operators:
 		bool operator==(const ConstBaseIterator& other)const;
 		bool operator!=(const ConstBaseIterator& other)const;
 
-		//				Dereferense operators:
-		const T& operator*()const;
+		//					 Dereference operator
+		const T& operator*() const;
 	};
 public:
 	class ConstIterator :public ConstBaseIterator
 	{
 	public:
-		ConstIterator(Element* Temp = nullptr) :ConstBaseIterator(Temp)
-		{
-#ifdef DEBUG
-			cout << "ItConstructor:\t" << this << endl;
-#endif // DEBUG
+		ConstIterator(Element* Temp = nullptr);
+		~ConstIterator();
 
-		}
-		~ConstIterator()
-		{
-#ifdef DEBUG
-			cout << "ItDestructor:\t" << this << endl;
-#endif // DEBUG
-		}
-
-		ConstIterator& operator++()
-		{
-			ConstBaseIterator::Temp = ConstBaseIterator::Temp->pNext;
-			return *this;
-		}
-		ConstIterator operator++(int)
-		{
-			ConstIterator old = *this;
-			ConstBaseIterator::Temp = ConstBaseIterator::Temp->pNext;
-			return old;
-		}
-		ConstIterator operator--()
-		{
-			ConstBaseIterator::Temp = ConstBaseIterator::Temp->pPrev;
-			return *this;
-		}
-		ConstIterator operator--(int)
-		{
-			ConstIterator old = *this;
-			ConstBaseIterator::Temp = ConstBaseIterator::Temp->pPrev;
-			return old;
-		}
+		ConstIterator& operator++();
+		ConstIterator operator++(int);
+		ConstIterator& operator--();
+		ConstIterator operator--(int);
 	};
 	class ConstReverseIterator :public ConstBaseIterator
 	{
 	public:
-		ConstReverseIterator(Element* Temp = nullptr) :ConstBaseIterator(Temp)
-		{
-#ifdef DEBUG
-			cout << "RItConstructor:\t" << this << endl;
-#endif // DEBUG
+		ConstReverseIterator(Element* Temp = nullptr);
+		~ConstReverseIterator();
 
-		}
-		~ConstReverseIterator()
-		{
-#ifdef DEBUG
-			cout << "RItDestructor:\t" << this << endl;
-#endif // DEBUG
-
-		}
-
-		//					Increment/Decrement:
-		ConstReverseIterator& operator++()
-		{
-			ConstBaseIterator::Temp = ConstBaseIterator::Temp->pPrev;
-			return *this;
-		}
-		ConstReverseIterator operator++(int)
-		{
-			ConstReverseIterator old = *this;
-			ConstBaseIterator::Temp = ConstBaseIterator::Temp->pPrev;
-			return old;
-		}
-		ConstReverseIterator& operator--()
-		{
-			ConstBaseIterator::Temp = ConstBaseIterator::Temp->pNext;
-			return *this;
-		}
-		ConstReverseIterator operator--(int)
-		{
-			ConstReverseIterator old = *this;
-			ConstBaseIterator::Temp = ConstBaseIterator::Temp->pNext;
-			return old;
-		}
+		//					Incremento/Decremento:
+		ConstReverseIterator& operator++();
+		ConstReverseIterator operator++(int);
+		ConstReverseIterator& operator--();
+		ConstReverseIterator operator--(int);
 	};
 
 	class Iterator :public ConstIterator
@@ -139,20 +78,16 @@ public:
 	public:
 		Iterator(Element* Temp = nullptr) :ConstIterator(Temp) {}
 		~Iterator() {}
-		T& operator*()
-		{
-			return ConstBaseIterator::Temp->Data;
-		}
+
+		T& operator*();
 	};
 	class ReverseIterator :public ConstReverseIterator
 	{
 	public:
 		ReverseIterator(Element* Temp = nullptr) :ConstReverseIterator(Temp) {}
 		~ReverseIterator() {}
-		T& operator*()
-		{
-			return ConstBaseIterator::Temp->Data;
-		}
+
+		T& operator*();
 	};
 
 	ConstIterator begin()const;
@@ -171,21 +106,19 @@ public:
 	List(const List<T>& other);
 	~List();
 
-	//					Assignment operators:
+	//				Operators:
 	List<T>& operator=(const List<T>& other);
 
 	//				Adding elements:
 	void push_front(T Data);
 	void push_back(T Data);
-	void insert(T Data, int Index);
+	void insert(T Data, int index);
 
-	//					Removing elements:
+	//				Removing elements:
 	void pop_front();
 	void pop_back();
-	void erase(int Index);
 
-
-	//					Methods:
+	//				Methods:
 	void print()const;
 	void reverse_print()const;
 };
