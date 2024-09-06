@@ -53,7 +53,7 @@ template<typename T>typename List<T>::ConstIterator List<T>::ConstIterator::oper
 	return old;
 }
 
-///						ConstReverseIterator:
+//						ConstReverseIterator:
 
 template<typename T>List<T>::ConstReverseIterator::ConstReverseIterator(Element* Temp) :ConstBaseIterator(Temp)
 {

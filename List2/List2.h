@@ -41,11 +41,11 @@ template<typename T>class List
 		ConstBaseIterator(Element* Temp = nullptr) :Temp(Temp) {}
 		~ConstBaseIterator() {}
 
-		//					Comparison operators:
+	//					Comparison operators:
 		bool operator==(const ConstBaseIterator& other)const;
 		bool operator!=(const ConstBaseIterator& other)const;
 
-		//					 Dereference operator
+	//					 Dereference operator
 		const T& operator*() const;
 	};
 public:
@@ -66,7 +66,7 @@ public:
 		ConstReverseIterator(Element* Temp = nullptr);
 		~ConstReverseIterator();
 
-		//					Incremento/Decremento:
+	//					Incremento/Decremento:
 		ConstReverseIterator& operator++();
 		ConstReverseIterator operator++(int);
 		ConstReverseIterator& operator--();
