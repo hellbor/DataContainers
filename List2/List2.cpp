@@ -1,5 +1,19 @@
 ﻿#include"List2.h"
 
+//				Comperison operators:
+template<typename T> bool List<T>::ConstBaseIterator::operator==(const ConstBaseIterator& other)const
+{
+	return this->Temp == other.Temp;
+}
+template<typename T> bool List<T>::ConstBaseIterator::operator!=(const ConstBaseIterator& other)const
+{
+	return this->Temp != other.Temp;
+}
+//				Dereferense operators:
+template<typename T>const T& List<T>::ConstBaseIterator::operator*()const
+{
+	return Temp->Data;
+}
 template<typename T>typename List<T>::ConstIterator List<T>::begin()const
 {
 	return Head;

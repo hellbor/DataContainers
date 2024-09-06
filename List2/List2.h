@@ -44,20 +44,11 @@ template<typename T>class List
 		~ConstBaseIterator() {}
 
 		//				Comperison operators:
-		bool operator==(const ConstBaseIterator& other)const
-		{
-			return this->Temp == other.Temp;
-		}
-		bool operator!=(const ConstBaseIterator& other)const
-		{
-			return this->Temp != other.Temp;
-		}
+		bool operator==(const ConstBaseIterator& other)const;
+		bool operator!=(const ConstBaseIterator& other)const;
 
 		//				Dereferense operators:
-		T& operator*()
-		{
-			return Temp->Data;
-		}
+		const T& operator*()const;
 	};
 public:
 	class ConstIterator :public ConstBaseIterator
@@ -75,8 +66,8 @@ public:
 #ifdef DEBUG
 			cout << "ItDestructor:\t" << this << endl;
 #endif // DEBUG
-
 		}
+
 		ConstIterator& operator++()
 		{
 			ConstBaseIterator::Temp = ConstBaseIterator::Temp->pNext;
