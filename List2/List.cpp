@@ -1,4 +1,4 @@
-﻿#include"List2.h"
+﻿#include"List.h"
 
 //					Comparison operators:
 template<typename T>bool List<T>::ConstBaseIterator::operator==(const ConstBaseIterator& other)const

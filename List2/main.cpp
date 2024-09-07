@@ -1,5 +1,5 @@
-﻿#include"List2.h"
-#include"List2.cpp"
+﻿#include"List.h"
+#include"List.cpp"
 
 //#define BASE_CHECK
 //#define ITERATORS_CHECK
