@@ -41,7 +41,10 @@ public:
 	public:
 		Iterator(Element* Temp = nullptr) :Temp(Temp)
 		{
+#ifdef DEBUG
 			cout << "ItConstructor:\t" << this << endl;
+#endif // DEBUG
+
 		}
 		~Iterator()
 		{
