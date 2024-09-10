@@ -48,7 +48,10 @@ public:
 		}
 		~Iterator()
 		{
+#ifdef DEBUG
 			cout << "ItDestructor:\t" << this << endl;
+#endif // DEBUG
+
 		}
 
 		Iterator& operator++()
