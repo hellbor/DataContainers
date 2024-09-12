@@ -386,6 +386,7 @@ public:
 		cout << "Количество элементов списка: " << size << endl;
 		cout << delimiter << endl;
 	}
+	friend class Queue;
 };
 
 List operator+(const List& left, const List& right)
@@ -409,10 +410,34 @@ void Grow(List& list)
 		*it *= 10;
 }
 
+class Queue :List
+{
+public:
+	void put(int Data)
+	{
+		push_back(Data);
+	}
+	int remove()
+	{
+		int Data = Head->Data;
+		pop_front();
+		return Data;
+	}
+	int size_q()const
+	{
+		return size;
+	}
+	bool empty()const
+	{
+		return List::Head == nullptr;
+	}
+};
+
+
 //#define BASE_CHECK
 //#define ITERATORS_CHECK
 //#define OPERATORS_CHECK
-#define CONST_ITERATORS_CHECK
+//#define CONST_ITERATORS_CHECK
 
 void main()
 {
@@ -478,4 +503,17 @@ void main()
 	for (int i : list3)cout << i << tab; cout << endl;
 #endif // CONST_ITERATORS_CHECK
 
+	Queue queue;
+	queue.put(3);
+	queue.put(5);
+	queue.put(8);
+	queue.put(13);
+	queue.put(21);
+
+	cout << "Size before: " << queue.size_q() << endl;
+	while (!queue.empty())
+	{
+		cout << queue.remove() << endl;
+	}
+	cout << "Size after: " << queue.size_q() << endl;
 }
